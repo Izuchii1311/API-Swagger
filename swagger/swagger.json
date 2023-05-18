@@ -1,0 +1,408 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "description": "Ini adalah dokumentasi API",
+        "version": "1.0.0",
+        "title": "API Documentation",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "email@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "/phpApi2"
+        }
+    ],
+    "tags": [
+        {
+            "name": "mahasiswa",
+            "description": "Mahasiswa"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+
+    "paths": {
+        "/mahasiswa.php": {
+            "get": {
+                "tags": [
+                    "mahasiswa"
+                ],
+                "summary": "Get All Mahasiswa",
+                "operationId": "mahasiswa_get",
+                "parameters": [
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "where",
+                            "type": "string",
+                            "default": "{}"
+                        },
+                        "name": "where",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Sort",
+                            "type": "string",
+                            "default": "id:asc"
+                        },
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Seacrh",
+                            "type": "string",
+                            "default": ""
+                        },
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Count",
+                            "type": "boolean",
+                            "default": ""
+                        },
+                        "name": "count",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MahasiswaResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "mahasiswa"
+                ],
+                "summary": "Create Mahasiswa",
+                "operationId": "mahasiswa_create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MahasiswaRequestSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MahasiswaResponseSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                        {
+                            "JWTBearer": []
+                        }
+                    ]
+                }
+            },
+            "/mahasiswa.php/{id}": {
+                "get": {
+                    "tags": [
+                        "mahasiswa"
+                    ],
+                    "summary": "Get Mahasiswa by Id",
+                    "description": "Can use id or slug",
+                    "operationId": "mahasiswa_get_by_id",
+                    "parameters": [
+                        {
+                            "required": true,
+                            "schema": {
+                                "title": "Id",
+                                "type": "string"
+                            },
+                            "name": "id",
+                            "in": "path"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/MahasiswaResponseSchema"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Validation Error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/HTTPValidationError"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "mahasiswa"
+                    ],
+                    "summary": "Mahasiswa Update",
+                    "description": "Can use id or slug",
+                    "operationId": "mahasiswa_update",
+                    "parameters": [
+                        {
+                            "required": true,
+                            "schema": {
+                                "title": "Id",
+                                "type": "string"
+                            },
+                            "name": "id",
+                            "in": "path"
+                        }
+                    ],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Data",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Successful Response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/MahasiswaResponseSchema"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Validation Error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/HTTPValidationError"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "securtity": [
+                        {
+                            "JWTBearer": []
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "mahasiswa"
+                    ],
+                    "summary": "Mahasiswa Delete",
+                    "description": "Can use id or slug",
+                    "operationId": "mahasiswa_delete",
+                    "parameters": [
+                        {
+                            "required": true,
+                            "schema": {
+                                "title": "Id",
+                                "type": "string"
+                            },
+                            "name": "id",
+                            "in": "path"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful Response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/MahasiswaResponseSchema"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Validation Error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/HTTPValidationError"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "security": [
+                        {
+                            "JWTBearer": []
+                        }
+                    ]
+                }
+            }
+        },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "title": "Status",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "message": {
+                        "title": "Message",
+                        "type": "string",
+                        "default": "Error description"
+                    }
+                }
+            },
+            "MahasiswaRequestSchema": {
+                "title": "MahasiswaRequestSchema",
+                "required": [
+                    "nim",
+                    "nama"
+                ],
+                "type": "object",
+                "properties": {
+                    "nim": {
+                        "title": "NIM",
+                        "type": "string"
+                    },
+                    "nik": {
+                        "title": "NIK",
+                        "type": "string"
+                    },
+                    "nama": {
+                        "title": "Nama",
+                        "type": "string"
+                    },
+                    "tanggal_lahir": {
+                        "title": "Tanggal Lahir",
+                        "type": "string"
+                    },
+                    "jenis_kelamin": {
+                        "title": "Jenis Kelamin",
+                        "type": "string"
+                    },
+                    "alamat": {
+                        "title": "alamat",
+                        "type": "string"
+                    },
+                    "is_active": {
+                        "title": "Status Aktif",
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "nim": "123",
+                    "nik": "123",
+                    "nama": "Satu",
+                    "tanggal_lahir": "2002-04-08",
+                    "jenis_kelamin": "Laki-Laki",
+                    "is_active": 1
+                }
+            },
+            "MahasiswaResponseSchema": {
+                "title": "MahasiswaResponseSchema",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "title": "Status",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "message": {
+                        "title": "Message",
+                        "type": "string",
+                        "default": "Get Data Success"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "array",
+                                "items": {}
+                            }
+                        ],
+                        "default": {}
+                    }
+                },
+                "example": {
+                    "status": true,
+                    "message": "Get Data Success",
+                    "data": [
+                        {
+                        "id": 1,
+                        "nim": "123",
+                        "nik": "123",
+                        "nama": "Satu",
+                        "tanggal_lahir": "2002-04-08",
+                        "jenis_kelamin": "Laki-Laki",
+                        "is_active": 1
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
+
